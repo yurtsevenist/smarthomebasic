@@ -5,15 +5,15 @@
 #include <Servo.h> // including servo library.
 #define FIREBASE_HOST "mysmart-bd8b8.firebaseio.com"
 #define FIREBASE_AUTH "xHD331r9slRy28z1wgFsZreQdxOO75mbts2WP9Zj"
-#define WIFI_SSID "f@tih"
-#define WIFI_PASSWORD "!1qaz2WSX3edc4RFV%56" 
-//#define WIFI_SSID "my"
-//#define WIFI_PASSWORD "mustafa2549" 
+//#define WIFI_SSID "f@tih"
+//#define WIFI_PASSWORD "!1qaz2WSX3edc4RFV%56" 
+#define WIFI_SSID "my"
+#define WIFI_PASSWORD "mustafa2549" 
 //WiFiServer server(80);
 
 int deger=0;
 Servo kapi;/* D8 SERVO KONTROL*/
-int klima=0;//D3
+int klima=1;//D3
 int blue = 13;  /* D7 RGB MAVİ*/
 int green = 14; /* D5 RGB YEŞİL*/
 int red = 12;  /* D6 RGB KIRMIZI  */
@@ -54,7 +54,7 @@ void setup() {
     digitalWrite(klima, LOW);
     digitalWrite(fbase,LOW);
 
-    kapi.write(0);
+    kapi.write(180);
        // digitalWrite(salon,LOW);
       // digitalWrite(mutfak, LOW);
       // digitalWrite(oda_1,LOW);    
@@ -112,16 +112,14 @@ void loop() {
     if(data.stringData()=="true")
     {
      digitalWrite(bahce, HIGH);    
-     analogWrite(red,110);
-     analogWrite(green,100);
-     analogWrite(blue,100);
+    
     }
     else 
     {
       digitalWrite(bahce, LOW);
-      digitalWrite(red, LOW);
-      digitalWrite(blue, LOW);
-      digitalWrite(green, LOW);      
+       analogWrite(red,0);
+     analogWrite(green,0);
+     analogWrite(blue,0);    
     }
    /* Firebase.getString(data,"salon/status");     
     Serial.println("salon değer "+ data.stringData());
@@ -147,11 +145,13 @@ void loop() {
     Serial.println("kapı değer "+ data.stringData());
     if(data.stringData()=="true")
     {
-    kapi.write(180);
+      kapi.write(5);
+        
     }
     else
     {
-      kapi.write(0);
+       kapi.write(175);
+     
     }
     Firebase.getString(data,"klima/status"); 
     Serial.println("klima değer "+ data.stringData());
